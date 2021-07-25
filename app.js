@@ -16,3 +16,31 @@ connection.connect(async (err) => {
     console.log(`connected as id ${connection.threadId}\n`);
     start();
 });
+const start = async () => {
+    try {
+        const userChoice1 = await inquirer.prompt([
+            {
+              name: 'userOption',
+              type: 'list',
+              message: 'What would you like to do?',
+              choices: [
+                new inquirer.Separator(),
+                'View Employees',
+                'View Departments',
+                'View Roles',
+                new inquirer.Separator(),
+                'Add Employee',
+                'Add Department',
+                'Add Role',
+                new inquirer.Separator(),
+                'Update Employee Role',
+                new inquirer.Separator(),
+                'Exit System'
+              ],
+            }
+        ]);
+        doWhatUserWantsTodo(userChoice1.userOption);
+      } catch (e) {
+        console.log(e);
+      }
+};
