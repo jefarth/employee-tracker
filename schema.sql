@@ -26,5 +26,3 @@ CREATE TABLE employee (
   -- This field may be null if the employee has no manager
   PRIMARY KEY (id)
 );
-
-CREATE TABLE
