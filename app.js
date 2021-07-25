@@ -15,6 +15,7 @@ const connection = mysql.createConnection({
 connection.connect(async (err) => {
     if (err) throw err;
     console.log(`connected as id ${connection.threadId}\n`);
+    start();
 });
 // Start the app
 const start = () => {
