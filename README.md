@@ -4,6 +4,8 @@
 ## Description
 This application gives a business owner the ability to be able to view and manage the departments, roles, and employees in their company.
 
+[Video Demonstration](https://drive.google.com/file/d/1_CIxYwSkR6Uw6tgdCda_6OPxfSTPNUSX/view)
+
 ## Table of Contents 
 
 * [Installation](#installation)
