@@ -1,10 +1,10 @@
+// Dependencies
 const inquirer = require("inquirer");
 const mysql = require('mysql');
 const cTable = require('console.table');
 // const view = require("./lib/functions/view");
 // const add = require("./lib/functions/add");
 // const update = require("./lib/functions/update");
-
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -69,8 +69,8 @@ const start = () => {
                     addRoles();
                     break;
                 // Update
-                case 'Update Employee':
-                    updateEmployees();
+                case 'Update Employee Role':
+                    updateEmpRole();
                     break;
                 // Exit
                 case 'Exit System':
@@ -80,8 +80,8 @@ const start = () => {
                 // Creates an error message if something breaks
                 default:
                     console.log(`Uh oh, you broke me! Tell my creator how I died.`);
-            }
-        })
+            };
+        });
 };
 // Get Requests
 // Shows Employees in a list
@@ -190,6 +190,23 @@ const addEmployees = async () => {
         });
     });
 };
+// Add Departments
+const addDepartments = () => {
+    inquirer
+        .prompt({
+            name: "department",
+            type: "input",
+            message: "What is the name of the new department?",
+        })
+        .then((answer) => {
+        const query = "INSERT INTO department (name) VALUES ( ? )";
+        connection.query(query, answer.department, (err, res) => {
+            console.log(`You have added this department: ${(answer.department).toUpperCase()}.`);
+        })
+        getDepartments();
+    });
+};
+// Add Roles
 const addRoles = () => {
     connection.query('SELECT * FROM department', (err, res) => {
         if (err) throw (err);
@@ -210,7 +227,7 @@ const addRoles = () => {
                 type: "list",
                 message: "Which department does this role fall under?",
                 choices: () => {
-                    var choicesArray = [];
+                    const choicesArray = [];
                     res.forEach(res => {
                         choicesArray.push(
                             res.name
@@ -224,19 +241,18 @@ const addRoles = () => {
             const department = answer.departmentName;
             connection.query('SELECT * FROM department', (err, res) => {
                 if (err) throw (err);
-                let filteredDept = res.filter((res) => {
+                const filteredDept = res.filter((res) => {
                     return res.name == department;
                 })
-                let id = filteredDept[0].id;
-                let query = "INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)";
-                let values = [answer.title, parseInt(answer.salary), id]
+                const id = filteredDept[0].id;
+                const query = "INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)";
+                const values = [answer.title, parseInt(answer.salary), id];
                 console.log(values);
-                connection.query(query, values,
-                (err, res, fields) => {
-                    console.log(`You have added this role: ${(values[0]).toUpperCase()}.`)
+                connection.query(query, values, (err, res, fields) => {
+                    console.log(`You have added this role: ${(values[0]).toUpperCase()}.`);
                 });
-                getRoles()
-            })
+                getRoles();
+            });
         });
     });
 };
