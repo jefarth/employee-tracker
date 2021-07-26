@@ -90,7 +90,7 @@ const getEmployees = () => {
       start();
     });
 };
-// Shows Employees in a list
+// Shows Departments in a list
 const getDepartments = () => {
     connection.query('SELECT * FROM department', async (err, departments) => {
       if (err) throw err;
@@ -98,7 +98,7 @@ const getDepartments = () => {
       start();
     });
 };
-// Shows Employees in a list
+// Shows Roles in a list
 const getRoles = () => {
     connection.query('SELECT * FROM role', async (err, roles) => {
       if (err) throw err;
